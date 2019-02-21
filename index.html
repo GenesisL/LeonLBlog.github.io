@@ -323,8 +323,7 @@
       
         
           
-            <p>####1、__block</p>
-<p>在一个 <code>block</code>里头如果使用了在 <code>block</code>之外的变数，会将这份变数先复制一份再使用，也就是，在没有特别宣告下，对于目前的<code>block</code> 来说，所有的外部的变数都是只可读的，不可改的。</p>
+            <h4 id="1、-block"><a href="#1、-block" class="headerlink" title="1、__block"></a>1、__block</h4><p>在一个 <code>block</code>里头如果使用了在 <code>block</code>之外的变数，会将这份变数先复制一份再使用，也就是，在没有特别宣告下，对于目前的<code>block</code> 来说，所有的外部的变数都是只可读的，不可改的。</p>
 <p>如果我们想让某个 <code>block</code> 可以改动某个外部的变数，我们则需要将这个可以被 <code>block</code> 改动的变数前面加上<code>__block</code>。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">__block int i = 1;</span><br><span class="line">void (^block)(void) = ^&#123;</span><br><span class="line">     i = i + 1;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>从另一个角度说，使用了<code>__block</code>关键字的变量会将变量从栈上复制到堆上。栈上那个变量会指向复制到堆上的变量。</p>
@@ -337,13 +336,12 @@
 <blockquote>
 <p><code>weakSelf</code>是为了block不持有self，避免循环引用，而再声明一个<code>strongSelf</code>是因为一旦进入block执行，就不允许self在这个执行过程中释放。block执行完后这个<code>strongSelf</code>会自动释放，没有循环引用问题。</p>
 </blockquote>
-<p>####4、比较weak&amp;<strong>weak、strong&amp;</strong>strong</p>
-<ol><br>    <li>strong，weak 用来修饰属性。<br>strong 用来修饰强引用的属性；weak 用来修饰弱引用的属性；<br>    </li><br>    <li>weak, strong 用来修饰变量.<br>strong 是默认的引用；weak 声明了一个可以自动 nil 化的弱引用。<br>    </li><br></ol>
+<h4 id="4、比较weak-amp-weak、strong-amp-strong"><a href="#4、比较weak-amp-weak、strong-amp-strong" class="headerlink" title="4、比较weak&amp;weak、strong&amp;strong"></a>4、比较weak&amp;<strong>weak、strong&amp;</strong>strong</h4><ol><br>    <li>strong，weak 用来修饰属性。<br>strong 用来修饰强引用的属性；weak 用来修饰弱引用的属性；<br>    </li><br>    <li>weak, strong 用来修饰变量.<br>strong 是默认的引用；weak 声明了一个可以自动 nil 化的弱引用。<br>    </li><br></ol>
 
 
 <blockquote>
-<p>1、<strong>typeof、</strong>typeof__、typeof的区别<br>恩~~他们没有区别，但是这牵扯一段往事，在早期C语言中没有typeof这个关键字，<strong>typeof、</strong>typeof__是在C语言的扩展关键字的时候出现的。<br>typeof是现代GNU C++的关键字，从Objective-C的根源说，他其实来自于C语言，所以AFNetworking使用了继承自C的关键字。</p>
-<p>2、对于老的LLVM编译器上面这句话会编译报错，所以在很早的ARC使用者中流行<strong>typeof(&amp;*self)这种写法，原因如下<br>大致说法是老LLVM编译器会将</strong>typeof转义为 XXX类名 <em>const <strong>strong的</strong>strong和前面的__weak关键字对指针的修饰又冲突了，所以加上&amp;</em>对指针的修饰。</p>
+<p>1、 <code>__typeof</code>、<code>__typeof__</code>、<code>typeof</code>的区别<br>他们没有区别，但是这牵扯一段往事，在早期C语言中没有<code>typeof</code>这个关键字，<code>__typeof</code>、<code>__typeof__</code>是在C语言的扩展关键字的时候出现的。<br><code>typeof</code>是现代GNU C++的关键字，从Objective-C的根源说，他其实来自于C语言，所以AFNetworking使用了继承自C的关键字。</p>
+<p>2、对于老的LLVM编译器上面这句话会编译报错，所以在很早的ARC使用者中流行<code>__typeof(&amp;*self)</code>这种写法，原因如下<br>大致说法是老LLVM编译器会将<code>__typeof</code>转义为 XXX类名 <code>*const __strong</code> 的 <code>__strong</code> 和前面的<code>__weak</code>关键字对指针的修饰又冲突了，所以加上&amp;*对指针的修饰。 </p>
 </blockquote>
 <p>来源：<a href="https://www.jianshu.com/p/501af50cd2d9" target="_blank" rel="noopener">简书-天空中的球</a></p>
 
